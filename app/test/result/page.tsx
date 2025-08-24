@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { mbtiResults } from '@/lib/mbti-results';
+import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 type AxisPair = ['E' | 'I', 'S' | 'N', 'T' | 'F', 'J' | 'P'][number][] extends never
@@ -58,6 +59,8 @@ function calculateMbtiFromAxisAnswers(answers: Answer[]): string {
 export default function TestResultPage() {
   const resultType = calculateMbtiFromAxisAnswers(mockedAnswers);
   const details = mbtiResults.find((item) => item.type === resultType);
+  const tr = useTranslations('result');
+  const locale = useLocale();
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
@@ -116,7 +119,7 @@ export default function TestResultPage() {
 
       <div className="text-center">
         <Button asChild size="lg">
-          <Link href="/match">Check Compatibility</Link>
+          <Link href={`/${locale}/match`}>{tr('checkCompatibility')}</Link>
         </Button>
       </div>
     </div>

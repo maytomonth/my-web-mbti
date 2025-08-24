@@ -72,9 +72,7 @@ export default function TestPage() {
       {/* Question Card */}
       <Card className="mb-8">
         <CardHeader>
-          <CardTitle className="text-lg">
-            {tq(mbtiQuestions[currentQuestion].text.replace('questions.', ''))}
-          </CardTitle>
+          <CardTitle className="text-lg">{tq(`q${mbtiQuestions[currentQuestion].id}`)}</CardTitle>
         </CardHeader>
         <CardContent>
           {/* Illustration Placeholder */}

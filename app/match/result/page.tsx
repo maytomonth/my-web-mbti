@@ -8,6 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { mbtiCompatibility } from '@/lib/mbti-match';
 import { mbtiResults } from '@/lib/mbti-results';
 import { Heart, ThumbsDown, ThumbsUp, User } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -16,6 +17,9 @@ export default function MatchResultPage() {
   const searchParams = useSearchParams();
   const [userType, setUserType] = useState<string>('');
   const [partnerType, setPartnerType] = useState<string>('');
+  const tr = useTranslations('result');
+  const ta = useTranslations('actions');
+  const locale = useLocale();
 
   useEffect(() => {
     const userParam = searchParams.get('user');
@@ -39,7 +43,7 @@ export default function MatchResultPage() {
       <div className="container mx-auto px-4 py-8 max-w-2xl text-center">
         <p>Invalid MBTI types. Please try again.</p>
         <Button asChild className="mt-4">
-          <Link href="/match">Check Compatibility</Link>
+          <Link href={`/${locale}/match`}>{ta('check')}</Link>
         </Button>
       </div>
     );
@@ -59,7 +63,7 @@ export default function MatchResultPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <User className="h-5 w-5" />
-              Your Type: {userType}
+              {tr('yourType')}: {userType}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -87,7 +91,7 @@ export default function MatchResultPage() {
           <CardHeader>
             <CardTitle className="flex items-center justify-center gap-2">
               <Heart className="h-5 w-5" />
-              Compatibility Score
+              {tr('compatibilityScore')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -100,13 +104,13 @@ export default function MatchResultPage() {
                 <div className="grid md:grid-cols-2 gap-6 mt-6 text-left">
                   <div>
                     <h4 className="font-semibold flex items-center gap-2 mb-2">
-                      <ThumbsUp className="h-4 w-4 text-green-600" /> 장점
+                      <ThumbsUp className="h-4 w-4 text-green-600" /> {tr('strengths')}
                     </h4>
                     <p className="text-sm text-muted-foreground">{comp.pros}</p>
                   </div>
                   <div>
                     <h4 className="font-semibold flex items-center gap-2 mb-2">
-                      <ThumbsDown className="h-4 w-4 text-orange-600" /> 과제
+                      <ThumbsDown className="h-4 w-4 text-orange-600" /> {tr('challenges')}
                     </h4>
                     <p className="text-sm text-muted-foreground">{comp.cons}</p>
                   </div>
@@ -128,7 +132,7 @@ export default function MatchResultPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Heart className="h-5 w-5" />
-              Partner Type: {partnerType}
+              {tr('partnerType')}: {partnerType}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -154,10 +158,10 @@ export default function MatchResultPage() {
         {/* Action Buttons */}
         <div className="flex gap-4 justify-center">
           <Button variant="outline" asChild>
-            <Link href="/match">Try Another Match</Link>
+            <Link href={`/${locale}/match`}>{tr('tryAnotherMatch')}</Link>
           </Button>
           <Button asChild>
-            <Link href="/test">Take Test Again</Link>
+            <Link href={`/${locale}/test`}>{tr('takeTestAgain')}</Link>
           </Button>
         </div>
       </div>
