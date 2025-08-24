@@ -1,0 +1,23 @@
+---
+alwaysApply: false
+---
+
+"cursor.codingRules": [
+"Use only shadcn/ui components for UI.",
+"Tailwind utility classes can be used inside custom components.",
+"Do not use any backend or database – all logic and data should be handled client-side.",
+"Use TypeScript for all components.",
+"Use file-based routing of Next.js (App Router).",
+"Use functional React components and hooks.",
+"Support multilingual structure (i18n) – include language placeholders where needed.",
+"AdSense placeholder should be styled but hidden (className='hidden')."
+]"cursor.codingRules": [
+"Use only shadcn/ui components for UI.",
+"Tailwind utility classes can be used inside custom components.",
+"Do not use any backend or database – all logic and data should be handled client-side.",
+"Use TypeScript for all components.",
+"Use file-based routing of Next.js (App Router).",
+"Use functional React components and hooks.",
+"Support multilingual structure (i18n) – include language placeholders where needed.",
+"AdSense placeholder should be styled but hidden (className='hidden')."
+]

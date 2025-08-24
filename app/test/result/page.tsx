@@ -1,95 +1,124 @@
-"use client"
+'use client';
 
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Brain, Users } from "lucide-react"
-import { mbtiTypes, getTopMatches } from "@/lib/mbti-data"
-import { AdPlaceholder } from "@/components/ad-placeholder"
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { mbtiResults } from '@/lib/mbti-results';
+import Link from 'next/link';
 
-export default function TestResultPage() {
-  const [result, setResult] = useState<string | null>(null)
+type AxisPair = ['E' | 'I', 'S' | 'N', 'T' | 'F', 'J' | 'P'][number][] extends never
+  ? never
+  : ['E' | 'I' | 'S' | 'N' | 'T' | 'F' | 'J' | 'P', 'E' | 'I' | 'S' | 'N' | 'T' | 'F' | 'J' | 'P'];
 
-  useEffect(() => {
-    const mbtiResult = localStorage.getItem("mbtiResult")
-    setResult(mbtiResult)
-  }, [])
+type Answer = {
+  axis: AxisPair;
+  value: number; // positive -> first axis letter, negative -> second axis letter
+};
 
-  if (!result || !mbtiTypes[result]) {
-    return (
-      <div className="container mx-auto px-4 py-8 max-w-2xl text-center">
-        <p>No test result found. Please take the test first.</p>
-        <Button asChild className="mt-4">
-          <Link href="/test">Take Test</Link>
-        </Button>
-      </div>
-    )
+const mockedAnswers: Answer[] = [
+  { axis: ['E', 'I'], value: 2 },
+  { axis: ['S', 'N'], value: -1 },
+  { axis: ['T', 'F'], value: -2 },
+  { axis: ['J', 'P'], value: 1 },
+  { axis: ['E', 'I'], value: -1 },
+  { axis: ['S', 'N'], value: 2 },
+  { axis: ['T', 'F'], value: -1 },
+  { axis: ['J', 'P'], value: -1 },
+];
+
+function calculateMbtiFromAxisAnswers(answers: Answer[]): string {
+  const totals: Record<'E' | 'I' | 'S' | 'N' | 'T' | 'F' | 'J' | 'P', number> = {
+    E: 0,
+    I: 0,
+    S: 0,
+    N: 0,
+    T: 0,
+    F: 0,
+    J: 0,
+    P: 0,
+  };
+
+  for (const { axis, value } of answers) {
+    const [first, second] = axis;
+    if (value >= 0) {
+      totals[first] += Math.abs(value);
+    } else {
+      totals[second] += Math.abs(value);
+    }
   }
 
-  const mbtiData = mbtiTypes[result]
-  const compatibleTypes = getTopMatches(result)
+  const ei = totals.E >= totals.I ? 'E' : 'I';
+  const sn = totals.S >= totals.N ? 'S' : 'N';
+  const tf = totals.T >= totals.F ? 'T' : 'F';
+  const jp = totals.J >= totals.P ? 'J' : 'P';
+
+  return `${ei}${sn}${tf}${jp}`;
+}
+
+export default function TestResultPage() {
+  const resultType = calculateMbtiFromAxisAnswers(mockedAnswers);
+  const details = mbtiResults.find((item) => item.type === resultType);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
-      {/* Result Card */}
       <Card className="mb-8 text-center">
         <CardHeader>
-          <div className="mb-4">
-            <Brain className="h-16 w-16 mx-auto text-primary mb-4" />
-            <Badge variant="secondary" className="text-lg px-4 py-2 mb-2">
-              {mbtiData.type}
-            </Badge>
-            <CardTitle className="text-2xl">{mbtiData.title}</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground mb-6">{mbtiData.description}</p>
-
-          <div className="flex flex-wrap gap-2 justify-center mb-6">
-            {mbtiData.keywords.map((keyword) => (
-              <Badge key={keyword} variant="outline">
-                {keyword}
-              </Badge>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      <div className="hidden">
-        <AdPlaceholder className="mb-8" />
-      </div>
-
-      {/* Compatible Types */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Users className="h-5 w-5" />
-            Top 3 Compatible Types
+          <Badge variant="secondary" className="text-lg px-4 py-2 mb-2 inline-block">
+            {resultType}
+          </Badge>
+          <CardTitle className="text-2xl">
+            {resultType}
+            {details ? ` – ${details.name}` : ''}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {compatibleTypes.map((match) => (
-              <div key={match.type} className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
-                <Badge variant="secondary">{match.type}</Badge>
-                <div className="flex-1">
-                  <p className="text-sm font-medium">{mbtiTypes[match.type]?.title}</p>
-                  <p className="text-xs text-muted-foreground">{match.score}% compatibility</p>
-                </div>
+          {details ? (
+            <>
+              <p className="text-muted-foreground mb-6">{details.description}</p>
+              <div className="flex flex-wrap gap-2 justify-center">
+                {details.keywords.map((kw) => (
+                  <Badge key={kw} variant="outline">
+                    {kw}
+                  </Badge>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          ) : (
+            <p className="text-muted-foreground">
+              결과 상세 정보를 불러오는 중 문제가 발생했습니다.
+            </p>
+          )}
         </CardContent>
       </Card>
 
-      {/* Action Button */}
+      {details && (
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="text-xl">BEST 3 궁합 타입</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {details.bestMatches.map((match) => (
+                <div
+                  key={match.type}
+                  className="flex items-start gap-3 p-3 rounded-lg border bg-card text-card-foreground"
+                >
+                  <Badge variant="secondary" className="mt-0.5">
+                    {match.type}
+                  </Badge>
+                  <p className="text-sm text-muted-foreground flex-1">{match.reason}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       <div className="text-center">
         <Button asChild size="lg">
           <Link href="/match">Check Compatibility</Link>
         </Button>
       </div>
     </div>
-  )
+  );
 }

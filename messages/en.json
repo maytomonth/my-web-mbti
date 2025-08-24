@@ -1,0 +1,75 @@
+{
+  "app": {
+    "title": "MBTI Explorer",
+    "nav": {
+      "home": "Home",
+      "test": "Take Test",
+      "match": "Check Compatibility"
+    }
+  },
+  "labels": {
+    "yourType": "Your Type",
+    "partnerType": "Partner Type",
+    "compatibilityScore": "Compatibility Score",
+    "strengths": "Strengths",
+    "challenges": "Challenges",
+    "best3": "Top 3 Matches",
+    "home": "Back to Main",
+    "question": "Question",
+    "next": "Next",
+    "getResults": "Get Results"
+  },
+  "answers": {
+    "stronglyAgree": "Strongly Agree",
+    "agree": "Agree",
+    "disagree": "Disagree",
+    "stronglyDisagree": "Strongly Disagree"
+  },
+  "home": {
+    "personalityTitle": "Discover Your Personality",
+    "personalityDescription": "Take our comprehensive MBTI test to understand your unique personality type and traits.",
+    "compatibilityTitle": "Check Compatibility",
+    "compatibilityDescription": "Explore how different MBTI types work together in relationships and partnerships."
+  },
+  "match": {
+    "title": "Check Compatibility",
+    "subtitle": "Select both MBTI types to see how compatible they are",
+    "yourTypeTitle": "Your MBTI Type",
+    "partnerTypeTitle": "Partner's MBTI Type",
+    "yourTypePlaceholder": "Select your MBTI type",
+    "partnerTypePlaceholder": "Select partner's MBTI type",
+    "checkButton": "Check Compatibility",
+    "backToMain": "Back to Main"
+  },
+  "questions": {
+    "q1": "You prefer to focus on the outer world of people and things rather than the inner world of ideas.",
+    "q2": "You feel energized by spending time with groups of people.",
+    "q3": "You tend to think out loud and process ideas by talking them through.",
+    "q4": "You prefer quiet reflection and thinking before speaking.",
+    "q5": "You feel drained after spending long periods in social situations.",
+    "q6": "You prefer to focus on concrete facts and details rather than possibilities.",
+    "q7": "You trust information that comes from direct experience and observation.",
+    "q8": "You prefer practical, realistic approaches to problems.",
+    "q9": "You enjoy exploring theoretical concepts and future possibilities.",
+    "q10": "You often see patterns and connections that others miss.",
+    "q11": "You make decisions based primarily on logic and objective analysis.",
+    "q12": "You believe being honest is more important than being tactful.",
+    "q13": "You prefer to remain emotionally detached when making important decisions.",
+    "q14": "You consider people's feelings and values when making decisions.",
+    "q15": "You believe maintaining harmony is often more important than being right.",
+    "q16": "You prefer to have things settled and decided rather than open-ended.",
+    "q17": "You like to plan ahead and stick to schedules.",
+    "q18": "You feel comfortable making decisions quickly.",
+    "q19": "You prefer to keep your options open and adapt as you go.",
+    "q20": "You work best under pressure and close to deadlines."
+  },
+  "actions": {
+    "check": "Check Compatibility",
+    "again": "Take Test Again",
+    "tryAnother": "Try Another Match"
+  },
+  "lang": {
+    "en": "English",
+    "ko": "Korean"
+  }
+}

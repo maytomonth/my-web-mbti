@@ -1,39 +1,40 @@
-"use client"
+'use client';
 
-import { useEffect, useState } from "react"
-import { useSearchParams } from "next/navigation"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
-import { User, Heart, Users, ThumbsUp, ThumbsDown } from "lucide-react"
-import { mbtiTypes, getCompatibilityScore, getCompatibilityAnalysis, getTopMatches } from "@/lib/mbti-data"
-import { AdPlaceholder } from "@/components/ad-placeholder"
+import { AdPlaceholder } from '@/components/ad-placeholder';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { mbtiCompatibility } from '@/lib/mbti-match';
+import { mbtiResults } from '@/lib/mbti-results';
+import { Heart, ThumbsDown, ThumbsUp, User } from 'lucide-react';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function MatchResultPage() {
-  const searchParams = useSearchParams()
-  const [userType, setUserType] = useState<string>("")
-  const [partnerType, setPartnerType] = useState<string>("")
+  const searchParams = useSearchParams();
+  const [userType, setUserType] = useState<string>('');
+  const [partnerType, setPartnerType] = useState<string>('');
 
   useEffect(() => {
-    const userParam = searchParams.get("user")
-    const partnerParam = searchParams.get("partner")
+    const userParam = searchParams.get('user');
+    const partnerParam = searchParams.get('partner');
 
     if (userParam && partnerParam) {
-      setUserType(userParam)
-      setPartnerType(partnerParam)
+      setUserType(userParam);
+      setPartnerType(partnerParam);
     } else {
       // Fallback to localStorage or default
-      const storedResult = localStorage.getItem("mbtiResult")
+      const storedResult = localStorage.getItem('mbtiResult');
       if (storedResult) {
-        setUserType(storedResult)
-        setPartnerType("ENFJ") // Default for demo
+        setUserType(storedResult);
+        setPartnerType('ENFJ'); // Default for demo
       }
     }
-  }, [searchParams])
+  }, [searchParams]);
 
-  if (!userType || !partnerType || !mbtiTypes[userType] || !mbtiTypes[partnerType]) {
+  if (!userType || !partnerType) {
     return (
       <div className="container mx-auto px-4 py-8 max-w-2xl text-center">
         <p>Invalid MBTI types. Please try again.</p>
@@ -41,14 +42,14 @@ export default function MatchResultPage() {
           <Link href="/match">Check Compatibility</Link>
         </Button>
       </div>
-    )
+    );
   }
 
-  const compatibilityScore = getCompatibilityScore(userType, partnerType)
-  const { pros, cons } = getCompatibilityAnalysis(userType, partnerType)
-  const userInfo = mbtiTypes[userType]
-  const partnerInfo = mbtiTypes[partnerType]
-  const topMatches = getTopMatches(userType)
+  const userInfo = mbtiResults.find((r) => r.type === userType);
+  const partnerInfo = mbtiResults.find((r) => r.type === partnerType);
+  const comp =
+    mbtiCompatibility.find((c) => c.from === userType && c.to === partnerType) ||
+    mbtiCompatibility.find((c) => c.from === partnerType && c.to === userType);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -58,7 +59,7 @@ export default function MatchResultPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <User className="h-5 w-5" />
-              Your Type: {userInfo.type}
+              Your Type: {userType}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -67,8 +68,15 @@ export default function MatchResultPage() {
                 <User className="h-8 w-8 text-blue-600" />
               </div>
               <div>
-                <h3 className="font-semibold">{userInfo.title}</h3>
-                <p className="text-sm text-muted-foreground">{userInfo.description}</p>
+                <div className="flex items-center gap-2 mb-1">
+                  <Badge variant="outline">{userType}</Badge>
+                  {userInfo && (
+                    <span className="text-sm text-muted-foreground">{userInfo.name}</span>
+                  )}
+                </div>
+                {userInfo && (
+                  <p className="text-sm text-muted-foreground">{userInfo.description}</p>
+                )}
               </div>
             </div>
           </CardContent>
@@ -83,40 +91,32 @@ export default function MatchResultPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="mb-4">
-              <div className="text-4xl font-bold text-primary mb-2">{compatibilityScore}%</div>
-              <Progress value={compatibilityScore} className="w-full max-w-xs mx-auto" />
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6 mt-6">
-              <div>
-                <h4 className="font-semibold flex items-center gap-2 mb-3">
-                  <ThumbsUp className="h-4 w-4 text-green-600" />
-                  Strengths
-                </h4>
-                <ul className="text-sm space-y-2">
-                  {pros.map((pro, index) => (
-                    <li key={index} className="text-muted-foreground text-left">
-                      • {pro}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="font-semibold flex items-center gap-2 mb-3">
-                  <ThumbsDown className="h-4 w-4 text-orange-600" />
-                  Challenges
-                </h4>
-                <ul className="text-sm space-y-2">
-                  {cons.map((con, index) => (
-                    <li key={index} className="text-muted-foreground text-left">
-                      • {con}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            {comp ? (
+              <>
+                <div className="mb-4">
+                  <div className="text-4xl font-bold text-primary mb-2">{comp.score}%</div>
+                  <Progress value={comp.score} className="w-full max-w-xs mx-auto" />
+                </div>
+                <div className="grid md:grid-cols-2 gap-6 mt-6 text-left">
+                  <div>
+                    <h4 className="font-semibold flex items-center gap-2 mb-2">
+                      <ThumbsUp className="h-4 w-4 text-green-600" /> 장점
+                    </h4>
+                    <p className="text-sm text-muted-foreground">{comp.pros}</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold flex items-center gap-2 mb-2">
+                      <ThumbsDown className="h-4 w-4 text-orange-600" /> 과제
+                    </h4>
+                    <p className="text-sm text-muted-foreground">{comp.cons}</p>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                해당 조합의 궁합 데이터가 아직 준비되지 않았어요.
+              </p>
+            )}
           </CardContent>
         </Card>
 
@@ -128,7 +128,7 @@ export default function MatchResultPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Heart className="h-5 w-5" />
-              Partner Type: {partnerInfo.type}
+              Partner Type: {partnerType}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -137,33 +137,16 @@ export default function MatchResultPage() {
                 <Heart className="h-8 w-8 text-pink-600" />
               </div>
               <div>
-                <h3 className="font-semibold">{partnerInfo.title}</h3>
-                <p className="text-sm text-muted-foreground">{partnerInfo.description}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Top Matches Card */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Users className="h-5 w-5" />
-              Top 3 Matches for {userType}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {topMatches.map((match, index) => (
-                <div key={match.type} className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
-                  <div className="flex items-center gap-3">
-                    <Badge variant="secondary">#{index + 1}</Badge>
-                    <Badge variant="outline">{match.type}</Badge>
-                    <span className="text-sm text-muted-foreground">{mbtiTypes[match.type]?.title}</span>
-                  </div>
-                  <div className="text-sm font-medium">{match.score}%</div>
+                <div className="flex items-center gap-2 mb-1">
+                  <Badge variant="outline">{partnerType}</Badge>
+                  {partnerInfo && (
+                    <span className="text-sm text-muted-foreground">{partnerInfo.name}</span>
+                  )}
                 </div>
-              ))}
+                {partnerInfo && (
+                  <p className="text-sm text-muted-foreground">{partnerInfo.description}</p>
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -179,5 +162,5 @@ export default function MatchResultPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

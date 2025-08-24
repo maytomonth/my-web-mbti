@@ -154,21 +154,21 @@ export const questions: Question[] = [
   // Extraversion vs Introversion
   {
     id: 1,
-    text: "You prefer to focus on the outer world of people and things rather than the inner world of ideas.",
+    text: "questions.q1",
     category: "E/I",
     dimension: "E",
   },
-  { id: 2, text: "You feel energized by spending time with groups of people.", category: "E/I", dimension: "E" },
+  { id: 2, text: "questions.q2", category: "E/I", dimension: "E" },
   {
     id: 3,
-    text: "You tend to think out loud and process ideas by talking them through.",
+    text: "questions.q3",
     category: "E/I",
     dimension: "E",
   },
-  { id: 4, text: "You prefer quiet reflection and thinking before speaking.", category: "E/I", dimension: "I" },
+  { id: 4, text: "questions.q4", category: "E/I", dimension: "I" },
   {
     id: 5,
-    text: "You feel drained after spending long periods in social situations.",
+    text: "questions.q5",
     category: "E/I",
     dimension: "I",
   },
@@ -176,43 +176,43 @@ export const questions: Question[] = [
   // Sensing vs Intuition
   {
     id: 6,
-    text: "You prefer to focus on concrete facts and details rather than possibilities.",
+    text: "questions.q6",
     category: "S/N",
     dimension: "S",
   },
   {
     id: 7,
-    text: "You trust information that comes from direct experience and observation.",
+    text: "questions.q7",
     category: "S/N",
     dimension: "S",
   },
-  { id: 8, text: "You prefer practical, realistic approaches to problems.", category: "S/N", dimension: "S" },
+  { id: 8, text: "questions.q8", category: "S/N", dimension: "S" },
   {
     id: 9,
-    text: "You enjoy exploring theoretical concepts and future possibilities.",
+    text: "questions.q9",
     category: "S/N",
     dimension: "N",
   },
-  { id: 10, text: "You often see patterns and connections that others miss.", category: "S/N", dimension: "N" },
+  { id: 10, text: "questions.q10", category: "S/N", dimension: "N" },
 
   // Thinking vs Feeling
   {
     id: 11,
-    text: "You make decisions based primarily on logic and objective analysis.",
+    text: "questions.q11",
     category: "T/F",
     dimension: "T",
   },
-  { id: 12, text: "You believe being honest is more important than being tactful.", category: "T/F", dimension: "T" },
+  { id: 12, text: "questions.q12", category: "T/F", dimension: "T" },
   {
     id: 13,
-    text: "You prefer to remain emotionally detached when making important decisions.",
+    text: "questions.q13",
     category: "T/F",
     dimension: "T",
   },
-  { id: 14, text: "You consider people's feelings and values when making decisions.", category: "T/F", dimension: "F" },
+  { id: 14, text: "questions.q14", category: "T/F", dimension: "F" },
   {
     id: 15,
-    text: "You believe maintaining harmony is often more important than being right.",
+    text: "questions.q15",
     category: "T/F",
     dimension: "F",
   },
@@ -220,14 +220,14 @@ export const questions: Question[] = [
   // Judging vs Perceiving
   {
     id: 16,
-    text: "You prefer to have things settled and decided rather than open-ended.",
+    text: "questions.q16",
     category: "J/P",
     dimension: "J",
   },
-  { id: 17, text: "You like to plan ahead and stick to schedules.", category: "J/P", dimension: "J" },
-  { id: 18, text: "You feel comfortable making decisions quickly.", category: "J/P", dimension: "J" },
-  { id: 19, text: "You prefer to keep your options open and adapt as you go.", category: "J/P", dimension: "P" },
-  { id: 20, text: "You work best under pressure and close to deadlines.", category: "J/P", dimension: "P" },
+  { id: 17, text: "questions.q17", category: "J/P", dimension: "J" },
+  { id: 18, text: "questions.q18", category: "J/P", dimension: "J" },
+  { id: 19, text: "questions.q19", category: "J/P", dimension: "P" },
+  { id: 20, text: "questions.q20", category: "J/P", dimension: "P" },
 ]
 
 export function calculateMBTIType(answers: number[]): string {
