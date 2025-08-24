@@ -76,7 +76,9 @@
     "challenges": "과제",
     "tryAnotherMatch": "다른 궁합 보기",
     "takeTestAgain": "다시 테스트하기",
-    "checkCompatibility": "궁합 보기"
+    "checkCompatibility": "궁합 보기",
+    "copyLink": "링크 복사하기",
+    "linkCopied": "링크가 복사되었습니다!"
   },
   "lang": {
     "en": "영어",

@@ -1,6 +1,7 @@
 'use client';
 
 import { AdPlaceholder } from '@/components/ad-placeholder';
+import { ShareLinkButton } from '@/components/share-link-button';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -164,6 +165,9 @@ export default function MatchResultPage() {
             <Link href={`/${locale}/test`}>{tr('takeTestAgain')}</Link>
           </Button>
         </div>
+
+        {/* 공유 영역 */}
+        <ShareLinkButton className="mt-6" />
       </div>
     </div>
   );

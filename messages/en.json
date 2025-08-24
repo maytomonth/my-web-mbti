@@ -68,6 +68,18 @@
     "again": "Take Test Again",
     "tryAnother": "Try Another Match"
   },
+  "result": {
+    "yourType": "Your Type",
+    "partnerType": "Partner Type",
+    "compatibilityScore": "Compatibility Score",
+    "strengths": "Strengths",
+    "challenges": "Challenges",
+    "tryAnotherMatch": "Try Another Match",
+    "takeTestAgain": "Take Test Again",
+    "checkCompatibility": "Check Compatibility",
+    "copyLink": "Copy Link",
+    "linkCopied": "Link copied to clipboard!"
+  },
   "lang": {
     "en": "English",
     "ko": "Korean"
