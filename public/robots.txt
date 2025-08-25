@@ -1,7 +1,12 @@
+# *
 User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /ko/questions/
 Disallow: /en/questions/
 
+# Host
+Host: https://test.maytomonth.com
+
+# Sitemaps
 Sitemap: https://test.maytomonth.com/sitemap.xml
