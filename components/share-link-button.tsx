@@ -7,15 +7,42 @@ import { toast } from 'sonner';
 
 interface ShareLinkButtonProps {
   className?: string;
+  customUrl?: string; // 특정 URL을 공유하고 싶을 때 사용
+  resultType?: string; // MBTI 결과 타입 (예: "INTJ")
+  matchTypes?: { user: string; partner: string }; // 궁합 테스트 결과용
 }
 
-export function ShareLinkButton({ className }: ShareLinkButtonProps) {
+export function ShareLinkButton({
+  className,
+  customUrl,
+  resultType,
+  matchTypes,
+}: ShareLinkButtonProps) {
   const [copied, setCopied] = useState(false);
   const tr = useTranslations('result');
 
+  // URL 생성 로직
+  const getShareUrl = () => {
+    if (customUrl) return customUrl;
+
+    const baseUrl = 'https://test.maytomonth.com';
+    const currentUrl = window.location.href;
+
+    // 개발 환경에서는 현재 URL 사용, 프로덕션에서는 baseUrl 사용
+    if (currentUrl.includes('localhost')) {
+      return currentUrl;
+    }
+
+    // 프로덕션 환경에서 URL 재구성
+    const pathname = window.location.pathname;
+    const search = window.location.search;
+    return `${baseUrl}${pathname}${search}`;
+  };
+
   const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      const shareUrl = getShareUrl();
+      await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
 
       // 피드백 표시 후 원상태로 복원
@@ -45,12 +72,23 @@ export function ShareLinkButton({ className }: ShareLinkButtonProps) {
     }
   };
 
+  // 공유 텍스트 생성
+  const getShareText = () => {
+    if (resultType) {
+      return `${resultType} 성격 유형 결과를 확인해보세요!`;
+    }
+    if (matchTypes) {
+      return `${matchTypes.user} × ${matchTypes.partner} 궁합 결과를 확인해보세요!`;
+    }
+    return '결과를 친구들과 공유해보세요!';
+  };
+
   return (
     <div className={`flex flex-col items-center space-y-4 ${className || ''}`}>
       <div className="w-full border-t border-gray-200 my-6"></div>
 
       <div className="text-center">
-        <p className="text-sm text-muted-foreground mb-3">결과를 친구들과 공유해보세요!</p>
+        <p className="text-sm text-muted-foreground mb-3">{getShareText()}</p>
 
         <Button
           variant="outline"

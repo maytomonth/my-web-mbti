@@ -1,8 +1,8 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'http://localhost:3000',
+  siteUrl: 'https://test.maytomonth.com',
   generateRobotsTxt: true,
-  generateIndexSitemap: false, // 페이지 수가 적으므로 단일 sitemap 사용
+  changefreq: 'daily',
   exclude: [
     '/ko/questions/*', // 개별 질문 페이지는 제외
     '/en/questions/*',
@@ -10,12 +10,12 @@ module.exports = {
   ],
   alternateRefs: [
     {
-      href: process.env.SITE_URL || 'http://localhost:3000',
-      hrefLang: 'ko',
+      href: 'https://test.maytomonth.com/ko',
+      hreflang: 'ko',
     },
     {
-      href: (process.env.SITE_URL || 'http://localhost:3000') + '/en',
-      hrefLang: 'en',
+      href: 'https://test.maytomonth.com/en',
+      hreflang: 'en',
     },
   ],
   robotsTxtOptions: {
@@ -26,7 +26,7 @@ module.exports = {
         disallow: ['/api/', '/ko/questions/', '/en/questions/'],
       },
     ],
-    additionalSitemaps: [(process.env.SITE_URL || 'http://localhost:3000') + '/sitemap.xml'],
+    additionalSitemaps: ['https://test.maytomonth.com/sitemap.xml'],
   },
   transform: async (config, path) => {
     // 기본 변환 로직
@@ -42,15 +42,15 @@ module.exports = {
     // Next.js App Router 경로 수동 추가
     const paths = [
       '/ko',
-      '/ko/test',
-      '/ko/match',
-      '/ko/test/result',
-      '/ko/match/result',
+      '/ko/mbti',
+      '/ko/mbti/match',
+      '/ko/mbti/result',
+      '/ko/mbti/match/result',
       '/en',
-      '/en/test',
-      '/en/match',
-      '/en/test/result',
-      '/en/match/result',
+      '/en/mbti',
+      '/en/mbti/match',
+      '/en/mbti/result',
+      '/en/mbti/match/result',
     ];
 
     return paths.map((path) => ({
@@ -67,8 +67,8 @@ function getChangeFreq(path) {
   if (path === '/ko' || path === '/en') {
     return 'daily'; // 메인 페이지는 자주 변경
   }
-  if (path.includes('/test') || path.includes('/match')) {
-    return 'weekly'; // 테스트 관련 페이지는 주 단위
+  if (path.includes('/mbti')) {
+    return 'weekly'; // MBTI 관련 페이지는 주 단위
   }
   return 'monthly'; // 기타 페이지는 월 단위
 }
@@ -78,11 +78,11 @@ function getPriority(path) {
   if (path === '/ko' || path === '/en') {
     return 1.0; // 메인 페이지는 최고 우선순위
   }
-  if (path.includes('/test')) {
-    return 0.8; // 테스트 페이지는 높은 우선순위
+  if (path.includes('/mbti') && !path.includes('/match') && !path.includes('/result')) {
+    return 0.8; // MBTI 테스트 페이지는 높은 우선순위
   }
-  if (path.includes('/match')) {
-    return 0.7; // 궁합 페이지는 중간 높은 우선순위
+  if (path.includes('/mbti/match') && !path.includes('/result')) {
+    return 0.7; // MBTI 궁합 페이지는 중간 높은 우선순위
   }
   if (path.includes('/result')) {
     return 0.6; // 결과 페이지는 중간 우선순위

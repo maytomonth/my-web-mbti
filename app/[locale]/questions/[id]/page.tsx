@@ -30,7 +30,7 @@ export default function QuestionPage() {
       <div className="container mx-auto px-4 py-8 max-w-2xl text-center">
         <p>질문을 찾을 수 없습니다.</p>
         <Button asChild className="mt-4">
-          <Link href={`/${locale}/test`}>테스트로 돌아가기</Link>
+          <Link href={`/${locale}/mbti`}>테스트로 돌아가기</Link>
         </Button>
       </div>
     );
@@ -56,7 +56,7 @@ export default function QuestionPage() {
         router.push(`/${locale}/questions/${nextQuestionId}`);
       } else {
         // 테스트 완료, 결과 페이지로 이동
-        router.push(`/${locale}/test/result`);
+        router.push(`/${locale}/mbti/result`);
       }
     }
   };

@@ -5,6 +5,7 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  trailingSlash: true,
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -17,7 +18,7 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   env: {
-    SITE_URL: process.env.SITE_URL || 'http://localhost:3000',
+    SITE_URL: process.env.SITE_URL || 'https://test.maytomonth.com',
     APP_NAME: process.env.APP_NAME || 'MBTI 탐험가',
     APP_DESCRIPTION:
       process.env.APP_DESCRIPTION || '정확한 MBTI 테스트로 나만의 성격 유형을 알아보세요.',

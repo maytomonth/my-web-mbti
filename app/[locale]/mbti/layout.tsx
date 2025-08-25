@@ -1,5 +1,6 @@
 import { getPageSEO } from '@/lib/seo-config';
 import type { Metadata } from 'next';
+import type React from 'react';
 
 export async function generateMetadata({
   params,
@@ -7,7 +8,13 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return getPageSEO('home', locale as 'ko' | 'en');
+  return getPageSEO('test', locale as 'ko' | 'en');
 }
 
-export { default } from '@/app/page';
+export default function MbtiLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return <>{children}</>;
+}
