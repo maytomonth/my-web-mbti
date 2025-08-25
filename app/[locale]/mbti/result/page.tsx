@@ -110,10 +110,19 @@ export default function TestResultPage() {
         </Card>
       )}
 
-      <div className="text-center">
+      <div className="text-center space-y-4">
         <Button asChild size="lg">
           <Link href={`/${locale}/mbti/match`}>{tr('checkCompatibility')}</Link>
         </Button>
+
+        <div className="flex gap-4 justify-center">
+          <Button variant="outline" asChild>
+            <Link href={`/${locale}/mbti/test`}>다시 테스트하기</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href={`/${locale}/mbti`}>메인으로</Link>
+          </Button>
+        </div>
       </div>
 
       {/* 공유 영역 */}

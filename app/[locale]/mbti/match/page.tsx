@@ -62,7 +62,7 @@ export default function MatchPage() {
       {/* Header */}
       <div className="mb-8">
         <Button variant="outline" asChild className="mb-4 bg-transparent">
-          <Link href={`/${locale}`}>
+          <Link href={`/${locale}/mbti`}>
             <ArrowLeft className="h-4 w-4 mr-2" />
             {tm('backToMain')}
           </Link>

@@ -1,139 +1,71 @@
 'use client';
 
-import { AdPlaceholder } from '@/components/ad-placeholder';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { calculateMBTIType } from '@/lib/mbti-data';
-import { mbtiQuestions } from '@/lib/mbti-questions';
-import { ArrowLeft } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import { Brain, Heart } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
-// 이 페이지는 localStorage API를 사용하므로 동적 렌더링을 설정합니다.
-export const dynamic = 'force-dynamic';
-
-export default function TestPage() {
-  const t = useTranslations('labels');
-  const tq = useTranslations('questions');
-  const ta = useTranslations('answers');
+export default function MBTIHomePage() {
   const locale = useLocale();
-  const router = useRouter();
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [answers, setAnswers] = useState<number[]>([]);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const progress = ((currentQuestion + 1) / mbtiQuestions.length) * 100;
-
-  const answerOptions = [
-    { value: 4, label: ta('stronglyAgree') },
-    { value: 3, label: ta('agree') },
-    { value: 2, label: ta('disagree') },
-    { value: 1, label: ta('stronglyDisagree') },
-  ];
-
-  const handleNext = () => {
-    if (selectedAnswer !== null) {
-      const numericAnswer = parseInt(selectedAnswer, 10);
-      const newAnswers = [...answers, numericAnswer];
-      setAnswers(newAnswers);
-
-      if (currentQuestion < mbtiQuestions.length - 1) {
-        setCurrentQuestion(currentQuestion + 1);
-        setSelectedAnswer(null);
-      } else {
-        const mbtiType = calculateMBTIType(newAnswers);
-
-        // 브라우저 환경에서만 localStorage 사용
-        if (mounted && typeof window !== 'undefined') {
-          localStorage.setItem('mbtiResult', mbtiType);
-        }
-
-        router.push(`/${locale}/mbti/result`);
-      }
-    }
-  };
+  const t = useTranslations('app.nav');
+  const th = useTranslations('home');
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <Button variant="outline" asChild>
-          <Link href={`/${locale}`}>
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            {t('home') ?? 'Back to Main'}
-          </Link>
-        </Button>
-        <div className="text-sm text-muted-foreground">
-          {t('question') ?? 'Question'} {currentQuestion + 1} / {mbtiQuestions.length}
+    <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center p-4">
+      <div className="w-full max-w-6xl">
+        {/* 헤더 */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">MBTI 탐험가</h1>
+          <p className="text-xl text-gray-600">나만의 성격 유형을 알아보고 궁합을 확인해보세요</p>
         </div>
-      </div>
 
-      {/* Progress Bar */}
-      <Progress value={progress} className="mb-8" />
-
-      {/* Ad Placeholder */}
-      {currentQuestion === 10 && <AdPlaceholder className="mb-8" />}
-
-      {/* Question Card */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle className="text-lg">{tq(`q${mbtiQuestions[currentQuestion].id}`)}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {/* Question Image */}
-          <div className="mb-6 flex justify-center">
-            <div className="relative">
-              <Image
-                src={mbtiQuestions[currentQuestion].image}
-                alt={`Question ${mbtiQuestions[currentQuestion].id} illustration`}
-                width={590}
-                height={0}
-                style={{ height: 'auto' }}
-                className="rounded-lg shadow-md"
-                priority
-              />
+        {/* 메뉴 카드들 */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* MBTI 테스트 카드 */}
+          <Card className="p-8 text-center bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200 hover:shadow-lg transition-shadow">
+            <div className="mb-6">
+              <Brain className="h-16 w-16 mx-auto text-blue-600 mb-4" />
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                {th('personalityTitle') || 'MBTI 성격 테스트'}
+              </h2>
+              <p className="text-gray-600 mb-6">
+                {th('personalityDescription') ||
+                  '정확한 MBTI 테스트로 나만의 성격 유형을 알아보세요.'}
+                <br />
+                20개의 질문으로 당신의 성격을 분석합니다.
+              </p>
             </div>
-          </div>
+            <Button asChild size="lg" className="w-full">
+              <Link href={`/${locale}/mbti/test`}>{t('test') || '테스트 시작하기'}</Link>
+            </Button>
+          </Card>
 
-          {/* Answer Options */}
-          <div className="space-y-3">
-            {answerOptions.map((option) => {
-              const isSelected = selectedAnswer === String(option.value);
-              return (
-                <button
-                  key={option.value}
-                  type="button"
-                  onClick={() => setSelectedAnswer(String(option.value))}
-                  className={`w-full p-4 text-left rounded-lg border-2 transition-all duration-200 ${
-                    isSelected
-                      ? 'bg-[#F1F6FF] border-[#A4C6FF] text-[#1E1E1E] font-medium shadow-sm'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50'
-                  }`}
-                >
-                  {option.label}
-                </button>
-              );
-            })}
-          </div>
-        </CardContent>
-      </Card>
+          {/* MBTI 궁합 테스트 카드 */}
+          <Card className="p-8 text-center bg-gradient-to-br from-pink-50 to-rose-50 border-pink-200 hover:shadow-lg transition-shadow">
+            <div className="mb-6">
+              <Heart className="h-16 w-16 mx-auto text-pink-600 mb-4" />
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                {th('compatibilityTitle') || 'MBTI 궁합 테스트'}
+              </h2>
+              <p className="text-gray-600 mb-6">
+                {th('compatibilityDescription') || '두 사람의 MBTI 궁합을 확인해보세요.'}
+                <br />
+                서로의 성격 유형으로 궁합도를 분석합니다.
+              </p>
+            </div>
+            <Button asChild size="lg" variant="outline" className="w-full bg-transparent">
+              <Link href={`/${locale}/mbti/match`}>{t('match') || '궁합 확인하기'}</Link>
+            </Button>
+          </Card>
+        </div>
 
-      {/* Next Button */}
-      <div className="text-center">
-        <Button onClick={handleNext} disabled={selectedAnswer === null} size="lg">
-          {currentQuestion < mbtiQuestions.length - 1
-            ? t('next') ?? 'Next'
-            : t('getResults') ?? 'Get Results'}
-        </Button>
+        {/* 하단 설명 */}
+        <div className="text-center mt-12">
+          <p className="text-gray-500">
+            정확한 성격 분석과 과학적 근거를 바탕으로 한 MBTI 테스트를 경험해보세요
+          </p>
+        </div>
       </div>
     </div>
   );

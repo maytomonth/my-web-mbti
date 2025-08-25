@@ -169,8 +169,11 @@ export default function MatchResultPage() {
           <Button variant="outline" asChild>
             <Link href={`/${locale}/mbti/match`}>{tr('tryAnotherMatch')}</Link>
           </Button>
+          <Button variant="outline" asChild>
+            <Link href={`/${locale}/mbti/test`}>테스트 다시하기</Link>
+          </Button>
           <Button asChild>
-            <Link href={`/${locale}/mbti`}>{tr('takeTestAgain')}</Link>
+            <Link href={`/${locale}/mbti`}>메인으로</Link>
           </Button>
         </div>
 
