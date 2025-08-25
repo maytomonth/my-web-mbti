@@ -18,6 +18,11 @@ export function StructuredData({ type, data }: StructuredDataProps) {
   const siteUrl = 'https://test.maytomonth.com';
 
   useEffect(() => {
+    // 브라우저 환경에서만 실행
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     const generateStructuredData = () => {
       const baseData = {
         '@context': 'https://schema.org',
