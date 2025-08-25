@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://test.maytomonth.com/</loc><lastmod>2025-08-25T14:35:11.084Z</lastmod><changefreq>monthly</changefreq><priority>0.5</priority><xhtml:link rel="alternate" hreflang="ko" href="https://test.maytomonth.com/ko/"/><xhtml:link rel="alternate" hreflang="en" href="https://test.maytomonth.com/en/"/></url>
-<url><loc>https://test.maytomonth.com/ko/</loc><lastmod>2025-08-25T14:35:11.084Z</lastmod><changefreq>daily</changefreq><priority>1</priority></url>
-<url><loc>https://test.maytomonth.com/ko/mbti/</loc><lastmod>2025-08-25T14:35:11.084Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://test.maytomonth.com/ko/mbti/match/</loc><lastmod>2025-08-25T14:35:11.084Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://test.maytomonth.com/ko/mbti/result/</loc><lastmod>2025-08-25T14:35:11.084Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-<url><loc>https://test.maytomonth.com/ko/mbti/match/result/</loc><lastmod>2025-08-25T14:35:11.084Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-<url><loc>https://test.maytomonth.com/en/</loc><lastmod>2025-08-25T14:35:11.084Z</lastmod><changefreq>daily</changefreq><priority>1</priority></url>
-<url><loc>https://test.maytomonth.com/en/mbti/</loc><lastmod>2025-08-25T14:35:11.084Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://test.maytomonth.com/en/mbti/match/</loc><lastmod>2025-08-25T14:35:11.084Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://test.maytomonth.com/en/mbti/result/</loc><lastmod>2025-08-25T14:35:11.084Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-<url><loc>https://test.maytomonth.com/en/mbti/match/result/</loc><lastmod>2025-08-25T14:35:11.084Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://test.maytomonth.com/mbti/match/</loc><lastmod>2025-08-25T14:49:03.975Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority><xhtml:link rel="alternate" hreflang="ko" href="https://test.maytomonth.com/ko/mbti/match/"/><xhtml:link rel="alternate" hreflang="en" href="https://test.maytomonth.com/en/mbti/match/"/></url>
+<url><loc>https://test.maytomonth.com/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>monthly</changefreq><priority>0.5</priority><xhtml:link rel="alternate" hreflang="ko" href="https://test.maytomonth.com/ko/"/><xhtml:link rel="alternate" hreflang="en" href="https://test.maytomonth.com/en/"/></url>
+<url><loc>https://test.maytomonth.com/mbti/result/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link rel="alternate" hreflang="ko" href="https://test.maytomonth.com/ko/mbti/result/"/><xhtml:link rel="alternate" hreflang="en" href="https://test.maytomonth.com/en/mbti/result/"/></url>
+<url><loc>https://test.maytomonth.com/mbti/match/result/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link rel="alternate" hreflang="ko" href="https://test.maytomonth.com/ko/mbti/match/result/"/><xhtml:link rel="alternate" hreflang="en" href="https://test.maytomonth.com/en/mbti/match/result/"/></url>
+<url><loc>https://test.maytomonth.com/mbti/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link rel="alternate" hreflang="ko" href="https://test.maytomonth.com/ko/mbti/"/><xhtml:link rel="alternate" hreflang="en" href="https://test.maytomonth.com/en/mbti/"/></url>
+<url><loc>https://test.maytomonth.com/mbti/test/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link rel="alternate" hreflang="ko" href="https://test.maytomonth.com/ko/mbti/test/"/><xhtml:link rel="alternate" hreflang="en" href="https://test.maytomonth.com/en/mbti/test/"/></url>
+<url><loc>https://test.maytomonth.com/ko/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>daily</changefreq><priority>1</priority></url>
+<url><loc>https://test.maytomonth.com/ko/mbti/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://test.maytomonth.com/ko/mbti/match/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://test.maytomonth.com/ko/mbti/result/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://test.maytomonth.com/ko/mbti/match/result/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://test.maytomonth.com/en/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>daily</changefreq><priority>1</priority></url>
+<url><loc>https://test.maytomonth.com/en/mbti/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://test.maytomonth.com/en/mbti/match/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://test.maytomonth.com/en/mbti/result/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+<url><loc>https://test.maytomonth.com/en/mbti/match/result/</loc><lastmod>2025-08-25T14:49:03.976Z</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
 </urlset>
