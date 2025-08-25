@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { trackMBTIEvents } from '@/lib/gtag';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -74,6 +75,13 @@ export function ShareLinkButton({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
       toast.success(tr('linkCopied'));
+
+      // GA 이벤트 추적
+      if (resultType) {
+        trackMBTIEvents.shareResult(resultType, 'copy_link');
+      } else if (matchTypes) {
+        trackMBTIEvents.shareResult(`${matchTypes.user}_${matchTypes.partner}`, 'copy_link');
+      }
     } catch (error) {
       console.error('Failed to copy link:', error);
       toast.error('복사에 실패했습니다. 다시 시도해주세요.');

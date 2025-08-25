@@ -1,8 +1,11 @@
+import { RouteChangeTracker } from '@/components/route-change-tracker';
 import { Toaster } from '@/components/ui/sonner';
+import { GA_TRACKING_ID, isGAEnabled } from '@/lib/gtag';
 import { createSEOConfig } from '@/lib/seo-config';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import type React from 'react';
 import './globals.css';
 
@@ -36,6 +39,30 @@ html { font-family: ${GeistSans.style.fontFamily}; --font-sans: ${GeistSans.vari
         `}</style>
       </head>
       <body className="min-h-screen flex flex-col">
+        {/* Google Analytics 4 (GA4) */}
+        {isGAEnabled() && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_TRACKING_ID}', {
+                  page_location: window.location.href,
+                  page_title: document.title,
+                });
+              `}
+            </Script>
+          </>
+        )}
+
+        {/* 라우트 변경 추적 */}
+        <RouteChangeTracker />
+
         {children}
         <Toaster />
       </body>
