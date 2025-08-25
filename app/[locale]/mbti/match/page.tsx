@@ -121,7 +121,12 @@ export default function MatchPage() {
 
       {/* Check Compatibility Button */}
       <div className="text-center">
-        <Button onClick={handleCheckCompatibility} disabled={!userType || !partnerType} size="lg">
+        <Button
+          onClick={handleCheckCompatibility}
+          disabled={!userType || !partnerType}
+          size="lg"
+          className={userType && partnerType ? 'bg-[#2b81d9] hover:bg-[#2b81d9]/90 text-white' : ''}
+        >
           {tm('checkButton')}
         </Button>
       </div>

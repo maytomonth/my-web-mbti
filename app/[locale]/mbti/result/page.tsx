@@ -48,8 +48,18 @@ export default function TestResultPage() {
   const resultType = calculateMbtiFromAxisAnswers(mockedAnswers);
   const details = mbtiResults.find((item) => item.type === resultType);
   const tr = useTranslations('result');
+  const tm = useTranslations('mbti.types');
   const locale = useLocale();
   const [isClient, setIsClient] = useState(false);
+
+  // 번역된 MBTI 정보 가져오기
+  const translatedInfo = tm.has(resultType)
+    ? {
+        name: tm(`${resultType}.name`),
+        description: tm(`${resultType}.description`),
+        keywords: tm(`${resultType}.keywords`),
+      }
+    : null;
 
   useEffect(() => {
     setIsClient(true);
@@ -64,47 +74,62 @@ export default function TestResultPage() {
           </Badge>
           <CardTitle className="text-2xl">
             {resultType}
-            {details ? ` – ${details.name}` : ''}
+            {translatedInfo ? ` – ${translatedInfo.name}` : ''}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {details ? (
+          {translatedInfo ? (
             <>
-              <p className="text-muted-foreground mb-6">{details.description}</p>
+              <p className="text-muted-foreground mb-6">{translatedInfo.description}</p>
               <div className="flex flex-wrap gap-2 justify-center">
-                {details.keywords.map((kw) => (
-                  <Badge key={kw} variant="outline">
-                    {kw}
-                  </Badge>
-                ))}
+                {Array.isArray(translatedInfo.keywords)
+                  ? translatedInfo.keywords.map((kw: string) => (
+                      <Badge key={kw} variant="outline">
+                        {kw}
+                      </Badge>
+                    ))
+                  : null}
               </div>
             </>
           ) : (
             <p className="text-muted-foreground">
-              결과 상세 정보를 불러오는 중 문제가 발생했습니다.
+              {locale === 'ko'
+                ? '결과 상세 정보를 불러오는 중 문제가 발생했습니다.'
+                : 'An error occurred while loading result details.'}
             </p>
           )}
         </CardContent>
       </Card>
 
-      {details && (
+      {translatedInfo && details && (
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="text-xl">BEST 3 궁합 타입</CardTitle>
+            <CardTitle className="text-xl">
+              {locale === 'ko' ? 'BEST 3 궁합 타입' : 'BEST 3 Compatible Types'}
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {details.bestMatches.map((match) => (
-                <div
-                  key={match.type}
-                  className="flex items-start gap-3 p-3 rounded-lg border bg-card text-card-foreground"
-                >
-                  <Badge variant="secondary" className="mt-0.5">
-                    {match.type}
-                  </Badge>
-                  <p className="text-sm text-muted-foreground flex-1">{match.reason}</p>
-                </div>
-              ))}
+              {details.bestMatches.map((match) => {
+                // 매치 타입의 번역된 이름 가져오기
+                const matchName = tm.has(match.type) ? tm(`${match.type}.name`) : '';
+                return (
+                  <div
+                    key={match.type}
+                    className="flex items-start gap-3 p-3 rounded-lg border bg-card text-card-foreground"
+                  >
+                    <div className="mt-0.5">
+                      <Badge variant="secondary" className="mb-1">
+                        {match.type}
+                      </Badge>
+                      {matchName && (
+                        <div className="text-xs text-muted-foreground">{matchName}</div>
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground flex-1">{match.reason}</p>
+                  </div>
+                );
+              })}
             </div>
           </CardContent>
         </Card>
@@ -117,10 +142,10 @@ export default function TestResultPage() {
 
         <div className="flex gap-4 justify-center">
           <Button variant="outline" asChild>
-            <Link href={`/${locale}/mbti/test`}>다시 테스트하기</Link>
+            <Link href={`/${locale}/mbti/test`}>{tr('retakeTest')}</Link>
           </Button>
           <Button variant="outline" asChild>
-            <Link href={`/${locale}/mbti`}>메인으로</Link>
+            <Link href={`/${locale}/mbti`}>{tr('backToHome')}</Link>
           </Button>
         </div>
       </div>

@@ -87,7 +87,7 @@ export default function TestPage() {
       </div>
 
       {/* Progress Bar */}
-      <Progress value={progress} className="mb-8" />
+      <Progress value={progress} className="mb-8 [&>[data-slot=progress-indicator]]:bg-[#2b81d9]" />
 
       {/* Ad Placeholder */}
       {currentQuestion === 10 && <AdPlaceholder className="mb-8" />}
@@ -124,7 +124,7 @@ export default function TestPage() {
                   onClick={() => setSelectedAnswer(String(option.value))}
                   className={`w-full p-4 text-left rounded-lg border-2 transition-all duration-200 ${
                     isSelected
-                      ? 'bg-[#F1F6FF] border-[#A4C6FF] text-[#1E1E1E] font-medium shadow-sm'
+                      ? 'bg-[#2b81d9] border-[#2b81d9] text-white font-medium shadow-sm'
                       : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50'
                   }`}
                 >
@@ -138,7 +138,12 @@ export default function TestPage() {
 
       {/* Next Button */}
       <div className="text-center">
-        <Button onClick={handleNext} disabled={selectedAnswer === null} size="lg">
+        <Button
+          onClick={handleNext}
+          disabled={selectedAnswer === null}
+          size="lg"
+          className={selectedAnswer !== null ? 'bg-[#2b81d9] hover:bg-[#2b81d9]/90 text-white' : ''}
+        >
           {currentQuestion < mbtiQuestions.length - 1
             ? t('next') ?? 'Next'
             : t('getResults') ?? 'Get Results'}

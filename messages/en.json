@@ -26,10 +26,15 @@
     "stronglyDisagree": "Strongly Disagree"
   },
   "home": {
-    "personalityTitle": "Discover Your Personality",
+    "title": "MBTI Explorer",
+    "subtitle": "Discover your personality type and check compatibility",
+    "personalityTitle": "MBTI Personality Test",
     "personalityDescription": "Take our comprehensive MBTI test to understand your unique personality type and traits.",
-    "compatibilityTitle": "Check Compatibility",
-    "compatibilityDescription": "Explore how different MBTI types work together in relationships and partnerships."
+    "personalityButton": "Take Test",
+    "compatibilityTitle": "MBTI Compatibility Test",
+    "compatibilityDescription": "Explore how different MBTI types work together in relationships and partnerships.",
+    "compatibilityButton": "Check Compatibility",
+    "bottomDescription": "Experience accurate personality analysis and MBTI testing based on scientific evidence"
   },
   "match": {
     "title": "Check Compatibility",
@@ -78,10 +83,100 @@
     "takeTestAgain": "Take Test Again",
     "checkCompatibility": "Check Compatibility",
     "copyLink": "Copy Link",
-    "linkCopied": "Link copied to clipboard!"
+    "linkCopied": "Link copied to clipboard!",
+    "retakeTest": "Retake Test",
+    "backToHome": "Back to Home"
   },
   "lang": {
     "en": "English",
     "ko": "Korean"
+  },
+  "mbti": {
+    "types": {
+      "INTJ": {
+        "name": "The Architect",
+        "description": "Strong at drawing the big picture and setting long-term direction. Based on penetrating insight and systematic thinking, they contemplate the most efficient path to achieve goals.\n\nWith high execution and concentration, they silently maintain the standards they set for themselves. However, perfectionist tendencies and high expectations may create gaps in pace with others or miss emotional signals. Sometimes practicing flexibility in the process can be helpful.",
+        "keywords": ["Strategic", "Independent", "Analytical", "Decisive"]
+      },
+      "INTP": {
+        "name": "The Thinker",
+        "description": "Enjoys breaking down and reconstructing ideas, exploring logic and principles. With high curiosity, they dig deep when encountering new concepts and theories.\n\nWhile strong at presenting creative solutions, execution may be delayed due to a tendency to keep options open, and they may struggle with prioritization. Connecting ideas to reality through small experiments and quick feedback loops makes their strengths shine even more.",
+        "keywords": ["Analytical", "Curious", "Original", "Rational"]
+      },
+      "ENTJ": {
+        "name": "The Commander",
+        "description": "Excels at setting clear goals and organizing resources for quick execution. Skilled at structuring and prioritizing, they often take leadership roles, leading teams to achieve results.\n\nHowever, direct communication and high standards can sometimes feel burdensome. Coordinating the rhythm of relationships along with performance enhances team sustainability.",
+        "keywords": ["Leadership", "Strategic", "Decisive", "Efficient"]
+      },
+      "ENTP": {
+        "name": "The Debater",
+        "description": "Finds joy in discovering and experimenting with new possibilities. Quickly connects various perspectives to present innovative ideas, and thoughts become clearer through discussion.\n\nOn the other hand, interest may wane in routine tasks and detailed execution. Collaborating with partners who can make ideas actually work, or supplementing execution with short-cycle goals improves balance.",
+        "keywords": ["Creative", "Challenging", "Adaptable", "Logical"]
+      },
+      "INFJ": {
+        "name": "The Advocate",
+        "description": "Values meaning and seeks to create positive change for people and communities. Though quiet, they grasp essence through deep insight and provide direction with long-term vision.\n\nHigh empathy and responsibility can easily lead to self-exhaustion. Setting healthy boundaries and securing time for self-care ensures authentic influence continues steadily.",
+        "keywords": ["Insightful", "Value-oriented", "Empathetic", "Purpose-driven"]
+      },
+      "INFP": {
+        "name": "The Mediator",
+        "description": "Stays true to authenticity and values, finding meaning in relationships and experiences. Rich in imagination and sensitivity, they view the world with a warm perspective and express creativity in their own way.\n\nSometimes constraints of reality or conflict situations can feel burdensome. Setting small execution goals and practicing honest communication can gently connect inner values with reality.",
+        "keywords": ["Idealistic", "Empathetic", "Creative", "Authentic"]
+      },
+      "ENFJ": {
+        "name": "The Protagonist",
+        "description": "Excels at putting people at the center and gathering team energy. Helps others grow by discovering their strengths and shares vision persuasively.\n\nCaring nature may lead to putting oneself last. Clarifying expectations and limits while maintaining rest rhythms allows leadership to spread longer and wider.",
+        "keywords": ["Leadership", "Empathetic", "Organized", "Visionary"]
+      },
+      "ENFP": {
+        "name": "The Campaigner",
+        "description": "Inspires people by finding new possibilities. With flexible and warm communication, they brighten the atmosphere and expand their own path through diverse experiences.\n\nExecution may slow when interest wanes. Maintaining momentum by breaking favorite elements into small pieces for routines or setting deadlines and feedback with colleagues.",
+        "keywords": ["Enthusiastic", "Creative", "People-focused", "Autonomous"]
+      },
+      "ISTJ": {
+        "name": "The Logistician",
+        "description": "Highly responsible and trusted for keeping promises to the end. Makes judgments based on facts and data, producing best results in orderly and stable environments.\n\nMay experience stress in frequently changing or ambiguous situations. Sharing reasons for change and expected effects in advance, and trying gradually makes adaptation much easier.",
+        "keywords": ["Responsible", "Reliable", "Systematic", "Realistic"]
+      },
+      "ISFJ": {
+        "name": "The Protector",
+        "description": "Provides steady support to surroundings through detailed care and consistency. Offers practical help generously and builds trust through quiet dedication.\n\nTends to put own needs last, making fatigue accumulation easy. Practicing polite refusal and creating small self-care routines completes sustainable care.",
+        "keywords": ["Devoted", "Caring", "Responsible", "Practical"]
+      },
+      "ESTJ": {
+        "name": "The Executive",
+        "description": "Leads organizations and projects stably with clear standards and procedures. Strong in execution and management, clarifies responsibilities and focuses on goal achievement.\n\nQuick decisions and direct feedback can sometimes feel overwhelming. Sharing decision backgrounds and allowing time for input increases both trust and speed.",
+        "keywords": ["Organized", "Practical", "Responsible", "Decisive"]
+      },
+      "ESFJ": {
+        "name": "The Consul",
+        "description": "Good at sensing changes in people's moods and creating comfortable environments for everyone. Values tradition and trust, carefully tending to relationships.\n\nTrying too hard to meet others' expectations may lead to neglecting oneself. Allowing the same kindness to oneself and naturally practicing asking for help creates healthier harmony.",
+        "keywords": ["Caring", "Harmonious", "Relationship-oriented", "Responsible"]
+      },
+      "ISTP": {
+        "name": "The Virtuoso",
+        "description": "Strong at practical problem-solving, enjoys learning by touching and testing directly. Calm and flexible, quickly finds solutions even in unexpected situations.\n\nInterest may decrease in long-term planning or repetitive routines. Maintaining autonomy while setting small milestones and measurable goals increases sense of achievement.",
+        "keywords": ["Practical", "Independent", "Flexible", "Problem-solving"]
+      },
+      "ISFP": {
+        "name": "The Adventurer",
+        "description": "Rich in sensitivity, captures beauty in daily life with a warm perspective. Values present experiences and expresses themselves authentically in their own way.\n\nAvoidance of conflict may bury opinions. Practicing honest expression in comfortable language improves relationship balance.",
+        "keywords": ["Sensitive", "Flexible", "Authentic", "Aesthetic"]
+      },
+      "ESTP": {
+        "name": "The Entrepreneur",
+        "description": "Quick situation judgment and excellent action skills solve problems immediately. Large energy and presence inject vitality into teams.\n\nRisk-enjoying tendencies may underestimate long-term risks. Preparing safety measures through checklists and prior agreements makes strengths stand out more.",
+        "keywords": ["Action-oriented", "Adaptable", "Practical", "Bold"]
+      },
+      "ESFP": {
+        "name": "The Entertainer",
+        "description": "Finds great joy in moments with people and has talent for brightening atmosphere anywhere. Rich senses enable creating enjoyable experiences.\n\nPlans may become loose as interests shift. Maintaining fun elements while using simple schedule management and commitments with colleagues adds consistency.",
+        "keywords": ["Social", "Energetic", "Optimistic", "Realistic"]
+      }
+    },
+    "compatibility": {
+      "defaultPros": "You can respect each other's different perspectives and learn new viewpoints.",
+      "defaultCons": "Understanding may be difficult initially due to personality differences."
+    }
   }
 }

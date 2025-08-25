@@ -24,6 +24,8 @@ export default function MatchResultPage() {
   const [isClient, setIsClient] = useState(false);
   const tr = useTranslations('result');
   const ta = useTranslations('actions');
+  const tm = useTranslations('mbti.types');
+  const tc = useTranslations('mbti.compatibility');
   const locale = useLocale();
 
   useEffect(() => {
@@ -50,9 +52,15 @@ export default function MatchResultPage() {
   if (!userType || !partnerType) {
     return (
       <div className="container mx-auto px-4 py-8 max-w-2xl text-center">
-        <p>Invalid MBTI types. Please try again.</p>
+        <p>
+          {locale === 'ko'
+            ? '잘못된 MBTI 유형입니다. 다시 시도해주세요.'
+            : 'Invalid MBTI types. Please try again.'}
+        </p>
         <Button asChild className="mt-4">
-          <Link href={`/${locale}/mbti/match`}>Go back to compatibility test</Link>
+          <Link href={`/${locale}/mbti/match`}>
+            {locale === 'ko' ? '궁합 테스트로 돌아가기' : 'Go back to compatibility test'}
+          </Link>
         </Button>
       </div>
     );
@@ -63,6 +71,21 @@ export default function MatchResultPage() {
   const comp =
     mbtiCompatibility.find((c) => c.from === userType && c.to === partnerType) ||
     mbtiCompatibility.find((c) => c.from === partnerType && c.to === userType);
+
+  // 번역된 MBTI 정보 가져오기
+  const userTranslatedInfo = tm.has(userType)
+    ? {
+        name: tm(`${userType}.name`),
+        description: tm(`${userType}.description`),
+      }
+    : null;
+
+  const partnerTranslatedInfo = tm.has(partnerType)
+    ? {
+        name: tm(`${partnerType}.name`),
+        description: tm(`${partnerType}.description`),
+      }
+    : null;
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -83,12 +106,12 @@ export default function MatchResultPage() {
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <Badge variant="outline">{userType}</Badge>
-                  {userInfo && (
-                    <span className="text-sm text-muted-foreground">{userInfo.name}</span>
+                  {userTranslatedInfo && (
+                    <span className="text-sm text-muted-foreground">{userTranslatedInfo.name}</span>
                   )}
                 </div>
-                {userInfo && (
-                  <p className="text-sm text-muted-foreground">{userInfo.description}</p>
+                {userTranslatedInfo && (
+                  <p className="text-sm text-muted-foreground">{userTranslatedInfo.description}</p>
                 )}
               </div>
             </div>
@@ -115,19 +138,29 @@ export default function MatchResultPage() {
                     <h4 className="font-semibold flex items-center gap-2 mb-2">
                       <ThumbsUp className="h-4 w-4 text-green-600" /> {tr('strengths')}
                     </h4>
-                    <p className="text-sm text-muted-foreground">{comp.pros}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {comp.pros === '서로 다른 관점을 존중하며 새로운 시각을 배울 수 있습니다.'
+                        ? tc('defaultPros')
+                        : comp.pros}
+                    </p>
                   </div>
                   <div>
                     <h4 className="font-semibold flex items-center gap-2 mb-2">
                       <ThumbsDown className="h-4 w-4 text-orange-600" /> {tr('challenges')}
                     </h4>
-                    <p className="text-sm text-muted-foreground">{comp.cons}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {comp.cons === '성격 차이로 인해 초기에는 이해가 어려울 수 있습니다.'
+                        ? tc('defaultCons')
+                        : comp.cons}
+                    </p>
                   </div>
                 </div>
               </>
             ) : (
               <p className="text-sm text-muted-foreground">
-                해당 조합의 궁합 데이터가 아직 준비되지 않았어요.
+                {locale === 'ko'
+                  ? '해당 조합의 궁합 데이터가 아직 준비되지 않았어요.'
+                  : 'Compatibility data for this combination is not yet available.'}
               </p>
             )}
           </CardContent>
@@ -152,12 +185,16 @@ export default function MatchResultPage() {
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <Badge variant="outline">{partnerType}</Badge>
-                  {partnerInfo && (
-                    <span className="text-sm text-muted-foreground">{partnerInfo.name}</span>
+                  {partnerTranslatedInfo && (
+                    <span className="text-sm text-muted-foreground">
+                      {partnerTranslatedInfo.name}
+                    </span>
                   )}
                 </div>
-                {partnerInfo && (
-                  <p className="text-sm text-muted-foreground">{partnerInfo.description}</p>
+                {partnerTranslatedInfo && (
+                  <p className="text-sm text-muted-foreground">
+                    {partnerTranslatedInfo.description}
+                  </p>
                 )}
               </div>
             </div>
@@ -170,10 +207,10 @@ export default function MatchResultPage() {
             <Link href={`/${locale}/mbti/match`}>{tr('tryAnotherMatch')}</Link>
           </Button>
           <Button variant="outline" asChild>
-            <Link href={`/${locale}/mbti/test`}>테스트 다시하기</Link>
+            <Link href={`/${locale}/mbti/test`}>{tr('retakeTest')}</Link>
           </Button>
           <Button asChild>
-            <Link href={`/${locale}/mbti`}>메인으로</Link>
+            <Link href={`/${locale}/mbti`}>{tr('backToHome')}</Link>
           </Button>
         </div>
 
