@@ -13,7 +13,12 @@ import {
 import { ArrowLeft, Heart, User } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+
+// 이 페이지는 브라우저 API나 런타임 조건이 포함되어 있어
+// 빌드 시 정적 생성이 실패하므로 동적 렌더링을 강제로 설정합니다.
+export const dynamic = 'force-dynamic';
 
 const mbtiTypes = [
   'INTJ',
@@ -39,11 +44,12 @@ export default function MatchPage() {
   const [partnerType, setPartnerType] = useState('');
   const tm = useTranslations('match');
   const locale = useLocale();
+  const router = useRouter();
 
   const handleCheckCompatibility = () => {
     if (userType && partnerType) {
-      // In a real app, you'd pass these as URL params or store in state
-      window.location.href = `/${locale}/mbti/match/result?user=${userType}&partner=${partnerType}`;
+      // Next.js router를 사용하여 안전한 클라이언트 사이드 네비게이션
+      router.push(`/${locale}/mbti/match/result?user=${userType}&partner=${partnerType}`);
     }
   };
 

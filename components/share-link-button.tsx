@@ -25,6 +25,11 @@ export function ShareLinkButton({
   const getShareUrl = () => {
     if (customUrl) return customUrl;
 
+    // 브라우저 환경 체크
+    if (typeof window === 'undefined') {
+      return 'https://test.maytomonth.com';
+    }
+
     const baseUrl = 'https://test.maytomonth.com';
     const currentUrl = window.location.href;
 
@@ -40,35 +45,38 @@ export function ShareLinkButton({
   };
 
   const handleCopyLink = async () => {
+    // 브라우저 환경 체크
+    if (typeof window === 'undefined') {
+      toast.error('복사 기능을 사용할 수 없습니다.');
+      return;
+    }
+
     try {
       const shareUrl = getShareUrl();
-      await navigator.clipboard.writeText(shareUrl);
-      setCopied(true);
 
-      // 피드백 표시 후 원상태로 복원
-      setTimeout(() => setCopied(false), 2000);
-
-      // 성공 토스트 알림
-      toast.success(tr('linkCopied'));
-    } catch (error) {
-      console.error('Failed to copy link:', error);
-      // 복사 실패 시 fallback - 모바일에서는 clipboard API가 제한될 수 있음
-      try {
+      // navigator.clipboard API 사용 가능성 체크
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(shareUrl);
+      } else {
         // Fallback: 텍스트 선택 방식
         const textArea = document.createElement('textarea');
-        textArea.value = window.location.href;
+        textArea.value = shareUrl;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
         document.body.appendChild(textArea);
+        textArea.focus();
         textArea.select();
         document.execCommand('copy');
         document.body.removeChild(textArea);
-
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-        toast.success(tr('linkCopied'));
-      } catch (fallbackError) {
-        console.error('Fallback copy also failed:', fallbackError);
-        toast.error('복사에 실패했습니다. 다시 시도해주세요.');
       }
+
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+      toast.success(tr('linkCopied'));
+    } catch (error) {
+      console.error('Failed to copy link:', error);
+      toast.error('복사에 실패했습니다. 다시 시도해주세요.');
     }
   };
 

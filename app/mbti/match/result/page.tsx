@@ -15,6 +15,9 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+// 이 페이지는 localStorage API와 동적 URL 파라미터를 사용하므로 동적 렌더링을 설정합니다.
+export const dynamic = 'force-dynamic';
+
 export default function MatchResultPage() {
   const searchParams = useSearchParams();
   const [userType, setUserType] = useState<string>('');
@@ -31,11 +34,13 @@ export default function MatchResultPage() {
       setUserType(userParam);
       setPartnerType(partnerParam);
     } else {
-      // Fallback to localStorage or default
-      const storedResult = localStorage.getItem('mbtiResult');
-      if (storedResult) {
-        setUserType(storedResult);
-        setPartnerType('ENFJ'); // Default for demo
+      // Fallback to localStorage or default (브라우저 환경에서만)
+      if (typeof window !== 'undefined') {
+        const storedResult = localStorage.getItem('mbtiResult');
+        if (storedResult) {
+          setUserType(storedResult);
+          setPartnerType('ENFJ'); // Default for demo
+        }
       }
     }
   }, [searchParams]);

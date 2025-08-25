@@ -14,6 +14,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+// 이 페이지는 localStorage API를 사용하므로 동적 렌더링을 설정합니다.
+export const dynamic = 'force-dynamic';
+
 export default function TestPage() {
   const t = useTranslations('labels');
   const tq = useTranslations('questions');
@@ -43,7 +46,12 @@ export default function TestPage() {
         setSelectedAnswer(null);
       } else {
         const mbtiType = calculateMBTIType(newAnswers);
-        localStorage.setItem('mbtiResult', mbtiType);
+
+        // 브라우저 환경에서만 localStorage 사용
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('mbtiResult', mbtiType);
+        }
+
         router.push('/mbti/result');
       }
     }
